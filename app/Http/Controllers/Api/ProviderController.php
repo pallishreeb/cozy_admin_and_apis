@@ -174,9 +174,14 @@ class ProviderController extends Controller
             'name' => 'string|max:255',
             'mobile_number' => 'string|max:255',
             'address' => 'string|max:255',
+            'zipcode' => 'string|max:25',
+            'city' => 'string|max:100',
+            'state' => 'string|max:100',
+            'country' => 'string|max:100',
             'experience' => 'integer',
             'rate' => 'numeric',
-            'category' => 'string|max:255',
+            'category_id' => 'integer',
+            'service_id' => 'integer',
             'specialization' => 'string',
             'portfolio' => 'string|max:255',
             'profile_pic' => 'string|max:255',
@@ -192,6 +197,40 @@ class ProviderController extends Controller
         // Return success response
         return response()->json(['message' => 'Profile updated successfully']);
     }
+    public function updateBusinessHours(Request $request, $id)
+    {
+        $provider = Provider::findOrFail($id);
+    
+        // If provider not found, return error
+        if (!$provider) {
+            return response()->json(['error' => 'Provider not found'], 404);
+        }
+    
+        // Validate request data
+        $validator = Validator::make($request->all(), [
+            'working_hours' => 'json|nullable',
+            'business_hours_enabled' => 'boolean',
+        ]);
+    
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 400);
+        }
+    
+        // Get the working hours data from the validated request
+        $workingHours = $request->input('working_hours');
+    
+        // Convert the working hours array to a JSON string
+        $workingHoursJson = json_encode($workingHours);
+    
+        // Update provider's working hours and business hours enabled status
+        $provider->working_hours = $workingHoursJson;
+        $provider->business_hours_enabled = $request->input('business_hours_enabled');
+        $provider->save();
+    
+        return response()->json(['message' => 'Provider updated successfully'], 200);
+    }
+    
+
     public function getProfile(Request $request)
     {
         // Get the JWT token from the request headers

@@ -26,8 +26,8 @@
                             <td class="border py-2 px-3">{{ $provider->name }}</td>
                             <td class="border py-2 px-3">{{ $provider->email }}</td>
                             <td class="border py-2 px-3">{{ $provider->mobile_number ?? 'NA' }}</td>
-                            <td class="border py-2 px-3">{{ $provider->category ?? 'NA' }}</td>
-                            <td class="border py-2 px-3">{{ $provider->service ?? 'NA' }}</td>
+                            <td class="border py-2 px-3">{{ $provider->category->name ?? 'NA' }}</td>
+                            <td class="border py-2 px-3">{{ $provider->service->name ?? 'NA' }}</td>
                             <td class="border py-2 px-3">{{ $provider->rate ?? 'NA' }}</td>
                             <td class="border py-2 px-3">{{ $provider->experience ?? 'NA' }}</td>
                             <td class="border py-2 px-3">{{ $provider->address ?? 'NA' }}</td>

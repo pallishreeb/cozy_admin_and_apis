@@ -6,6 +6,7 @@ use App\Http\Controllers\ManageUserController;
 use App\Http\Controllers\ManageProviderController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\ManageDiscountController;
 
 //home route
 Route::get('/', function () {
@@ -52,3 +53,10 @@ Route::put('/services/{id}', [ServiceController::class, 'update'])->name('servic
 Route::delete('/services/{id}', [ServiceController::class, 'destroy'])->name('services.destroy');
 
 //manage discounts
+Route::get('/discounts', [ManageDiscountController::class, 'index'])->name('manage_discounts.index');
+Route::get('/discounts/create', [ManageDiscountController::class, 'create'])->name('manage_discounts.create');
+Route::post('/discounts', [ManageDiscountController::class, 'store'])->name('manage_discounts.store');
+Route::get('/discounts/{id}/edit', [ManageDiscountController::class, 'edit'])->name('manage_discounts.edit');
+Route::put('/discounts/{id}', [ManageDiscountController::class, 'update'])->name('manage_discounts.update');
+Route::delete('/discounts/{id}', [ManageDiscountController::class, 'destroy'])->name('manage_discounts.destroy');
+

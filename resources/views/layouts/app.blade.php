@@ -75,7 +75,7 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="flex items-center py-2 px-4  text-gray-800 hover:bg-red-500 hover:text-gray-100 {{ request()->is('discount') ? 'text-gray-100 bg-red-500' : 'text-gray-800' }}">
+                <a href="/discounts" class="flex items-center py-2 px-4  text-gray-800 hover:bg-red-500 hover:text-gray-100 {{ request()->is('discount') ? 'text-gray-100 bg-red-500' : 'text-gray-800' }}">
                     <i class="fas fa-percent mr-2"></i> <!-- Discount Icon -->
                     Manage Discount
                 </a>

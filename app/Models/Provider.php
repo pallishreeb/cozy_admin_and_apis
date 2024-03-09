@@ -17,12 +17,25 @@ class Provider extends Model implements JWTSubject
         'otp',
         'mobile_number',
         'address',
+        'city',
+        'state',
+        'country',
+        'zipcode',
+        'working_hours',
+        'business_hours_enabled',
         'experience',
         'rate',
-        'category',
+        'category_id',
+        'service_id',
         'specialization',
         'portfolio',
         'profile_pic',
+        'email_verified_at',
+        'otp_valid_until'
+    ];
+
+    protected $hidden = [
+        'password',
     ];
 
     public function getJWTIdentifier()
@@ -34,4 +47,15 @@ class Provider extends Model implements JWTSubject
     {
         return [];
     }
+
+    public function category()
+{
+    return $this->belongsTo(Category::class, 'category_id');
+}
+
+    public function service()
+    {
+        return $this->belongsTo(Service::class, 'service_id');
+    }
+
 }
