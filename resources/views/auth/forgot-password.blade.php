@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.main')
 
 @section('content')
     <div class="max-w-md mx-auto mt-8">
@@ -10,7 +10,19 @@
                 <span class="block sm:inline">{{ session('status') }}</span>
             </div>
         @endif
+        @if ($errors->any())
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
 
+                    @if($errors->has('email') && $errors->first('email') == 'You are not authorized to access this page.')
+                        <li>You are not authorized to access this page.</li>
+                    @endif
+                </ul>
+            </div>
+        @endif
         <form method="POST" action="{{ route('password.email') }}" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             @csrf
             <div class="mb-4">

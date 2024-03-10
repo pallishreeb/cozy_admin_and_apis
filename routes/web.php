@@ -9,7 +9,7 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ManageDiscountController;
 
 //home route
-Route::get('/', function () {
+Route::middleware('auth')->get('/', function () {
     return view('welcome');
 });
 

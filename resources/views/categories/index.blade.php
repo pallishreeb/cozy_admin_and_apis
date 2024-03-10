@@ -19,6 +19,7 @@
             <table class="border-collapse table-auto w-full whitespace-no-wrap bg-white table-striped relative">
                 <thead>
                     <tr class="text-left">
+                        <th class="py-2 px-3 sticky top-0 bg-gray-200">ID</th>
                         <th class="py-2 px-3 sticky top-0 bg-gray-200">Name</th>
                         <th class="py-2 px-3 sticky top-0 bg-gray-200">Image</th>
                         <th class="py-2 px-3 sticky top-0 bg-gray-200">Actions</th>
@@ -27,6 +28,7 @@
                 <tbody>
                     @foreach($categories as $category)
                         <tr>
+                            <td class="border py-2 px-3">{{ $category->id }}</td>
                             <td class="border py-2 px-3">{{ $category->name }}</td>
                             <td class="border py-2 px-3">
                                 @if($category->image)

@@ -23,7 +23,7 @@
             <div class="container mx-auto flex justify-between items-center py-4 px-6">
                 <!-- Left Side - Logo and Name -->
                 <div class="flex items-center">
-                    <a href="#" class="text-xl font-semibold text-gray-800">Cozy Admin</a>
+                    <a href="/" class="text-xl font-semibold text-gray-800">Cozy Admin</a>
                 </div>
             </div>
         </header>

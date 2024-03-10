@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container mx-auto py-6">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-6">Edit Provider</h2>
+        <h2 class="text-2xl text-center font-semibold text-gray-800 mb-6">Edit Provider</h2>
         <form method="POST" action="{{ route('manage_providers.update', $provider->id) }}" class="max-w-md mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             @csrf
             @method('PUT')

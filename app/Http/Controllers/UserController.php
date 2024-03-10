@@ -52,9 +52,13 @@ class UserController extends Controller
             : back()->withErrors(['email' => __($status)]);
     }
 
-    public function showResetPasswordForm($token)
+    public function showResetPasswordForm(Request $request, $token = null)
     {
-        return view('auth.reset-password', ['token' => $token]);
+        return view('auth.reset-password')->with([
+            'token' => $token,
+            'email' => $request->email, // assuming you need email as well
+            'request' => $request, // pass the entire request object to the view
+        ]);
     }
 
     public function resetPassword(Request $request)
