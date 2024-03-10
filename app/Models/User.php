@@ -22,7 +22,9 @@ class User extends Authenticatable implements JWTSubject
         'name',
         'email',
         'password',
-        'otp_valid_until'
+        'otp_valid_until',
+        'device_token',
+        'isNotificationAllowed'
     ];
 
     /**

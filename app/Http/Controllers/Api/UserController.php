@@ -160,4 +160,32 @@ class UserController extends Controller
         // Return user's profile
         return response()->json(['user' => $user]);
     }
+    public function saveToken(Request $request)
+{
+    $request->validate([
+        'device_token' => 'nullable|string',
+    ]);
+
+    // Get the JWT token from the request headers
+    $token = $request->header('Authorization');
+
+    // Attempt to parse the token and extract the user's ID
+    try {
+        $payload = JWTAuth::parseToken()->getPayload();
+        $email = $payload->get('sub'); // Assuming user ID is stored as 'sub' in the token
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'Invalid token'], 401);
+    }
+
+    // Find the user by email
+    $user = User::where('email', $email)->first();
+
+    // Update the user's device token and notification preference
+    $user->device_token = $request->input('device_token');
+    $user->isNotificationAllowed = !empty($user->device_token); // Set to true if device token is provided, false otherwise
+    $user->save();
+
+    return response()->json(['message' => 'Device token saved successfully'], 200);
+}
+
 }

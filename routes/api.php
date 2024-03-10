@@ -32,6 +32,7 @@ Route::post('user/login', [UserController::class, 'login']);
 Route::post('user/forgot-password', [UserController::class, 'forgotPassword']);
 Route::post('user/reset-password', [UserController::class, 'resetPassword']);
 Route::get('/user/profile', [UserController::class, 'getUser']);
+Route::post('/user/save-token', [UserController::class, 'saveToken']);
 
 // Provider registration
 Route::post('provider/register', [ProviderController::class, 'register']);

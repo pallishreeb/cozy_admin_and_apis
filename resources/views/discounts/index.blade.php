@@ -21,7 +21,7 @@
                     @foreach($categories as $category)
                         <tr>
                             <td class="border py-2 px-3">{{ $category->name }}</td>
-                            <td class="border py-2 px-3">{{ $category->discount ?? 'NA' }}</td>
+                            <td class="border py-2 px-3">{{ $category->discount ? ($category->discount * 100 / 100) . '%' : 'NA' }}</td>
                             <td class="border py-2 px-3">
                                 <a href="{{ route('manage_discounts.edit', $category->id) }}" class="text-blue-500 hover:text-blue-600 mr-2">Edit</a>
                                 <form action="{{ route('manage_discounts.destroy', $category->id) }}" method="POST" style="display: inline;">
