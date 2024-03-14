@@ -23,6 +23,7 @@ class Provider extends Model implements JWTSubject
         'zipcode',
         'working_hours',
         'business_hours_enabled',
+        'skills',
         'experience',
         'rate',
         'category_id',

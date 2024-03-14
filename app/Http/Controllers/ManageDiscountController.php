@@ -10,7 +10,7 @@ class ManageDiscountController extends Controller
 {
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::whereNotNull('discount')->get();
         return view('discounts.index', compact('categories'));
     }
 

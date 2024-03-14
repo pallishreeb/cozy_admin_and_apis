@@ -178,12 +178,6 @@ class ProviderController extends Controller
             'city' => 'string|max:100',
             'state' => 'string|max:100',
             'country' => 'string|max:100',
-            'experience' => 'integer',
-            'rate' => 'numeric',
-            'category_id' => 'integer',
-            'service_id' => 'integer',
-            'specialization' => 'string',
-            'portfolio' => 'string|max:255',
             'profile_pic' => 'string|max:255',
         ]);
 
@@ -230,7 +224,57 @@ class ProviderController extends Controller
         return response()->json(['message' => 'Provider updated successfully'], 200);
     }
     
+    public function updateBusinessProfile(Request $request)
+    {
+        // Get the JWT token from the request headers
+        $token = $request->header('Authorization');
 
+        // Attempt to parse the token and extract the provider's email
+        try {
+            $payload = JWTAuth::parseToken()->getPayload();
+            $id = $payload->get('sub'); // Assuming email is stored as 'sub' in the token
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Invalid token'], 401);
+        }
+
+        // Find the provider by email
+        $provider = Provider::where('id', $id)->first();
+
+        // If provider not found, return error
+        if (!$provider) {
+            return response()->json(['error' => 'Provider not found'], 404);
+        }
+
+        // Validate the request data
+        $validator = Validator::make($request->all(), [
+            'experience' => 'integer',
+            'rate' => 'numeric',
+            'category_id' => 'integer',
+            'service_id' => 'integer',
+            'specialization' => 'string',
+            'portfolio' => 'file|max:5120', // Max file size: 5MB
+            'skills' => 'string|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        $data = $request->all();
+        if ($request->hasFile('portfolio')) {
+            $portfolio = $request->file('portfolio');
+            $portfolioName = time() . '.' . $portfolio->getClientOriginalExtension();
+            $portfolio->move(public_path('portfolios'), $portfolioName);
+            $data['portfolio'] = $portfolioName; // Store only the filename
+        }
+    
+
+        // Update the provider's profile
+        $provider->update($data);
+
+        // Return success response
+        return response()->json(['message' => 'Profile updated successfully']);
+    }
     public function getProfile(Request $request)
     {
         // Get the JWT token from the request headers

@@ -49,6 +49,8 @@ Route::post('provider/reset-password', [ProviderController::class, 'resetPasswor
 
 // Provider update profile
 Route::post('provider/update-profile', [ProviderController::class, 'updateProfile']);
+// Provider update business profile
+Route::post('provider/update-business-profile', [ProviderController::class, 'updateBusinessProfile']);
 //update business hour
 Route::put('/provider/update-business-hours/{id}',[ProviderController::class, 'updateBusinessHours']);
 

@@ -7,11 +7,17 @@ use App\Http\Controllers\ManageProviderController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ManageDiscountController;
+use App\Http\Controllers\DashboardController;
 
+
+
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
+Route::get('/admin/profile', [DashboardController::class, 'showUpdateProfileForm'])->name('admin.profile.update')->middleware('auth');
+Route::put('/admin/update', [DashboardController::class, 'updateAdmin'])->name('admin.update')->middleware('auth');
 //home route
-Route::middleware('auth')->get('/', function () {
-    return view('welcome');
-});
+// Route::middleware('auth')->get('/dashboard', function () {
+//     return view('welcome');
+// });
 
 // Authentication Routes...
 Route::get('login', [UserController::class, 'showLoginForm'])->name('login');
