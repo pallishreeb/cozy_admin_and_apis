@@ -171,22 +171,31 @@ class ProviderController extends Controller
 
         // Validate the request data
         $validator = Validator::make($request->all(), [
-            'name' => 'string|max:255',
-            'mobile_number' => 'string|max:255',
-            'address' => 'string|max:255',
-            'zipcode' => 'string|max:25',
-            'city' => 'string|max:100',
-            'state' => 'string|max:100',
-            'country' => 'string|max:100',
-            'profile_pic' => 'string|max:255',
+            'name' => 'nullable|string|max:255',
+            'mobile_number' => 'nullable|string|max:255',
+            'address' => 'nullable|string|max:255',
+            'zipcode' => 'nullable|string|max:25',
+            'city' => 'nullable|string|max:100',
+            'state' => 'nullable|string|max:100',
+            'country' => 'nullable|string|max:100',
+            'profile_pic' => 'nullable|image|max:20480',
         ]);
 
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
 
+        $data = $request->all();
+    
+        if ($request->hasFile('profile_pic')) {
+            $image = $request->file('profile_pic');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('profile_pic'), $imageName);
+            $data['profile_pic'] = $imageName; // Store only the filename
+        }
+    
         // Update the provider's profile
-        $provider->update($request->all());
+        $provider->update($data);
 
         // Return success response
         return response()->json(['message' => 'Profile updated successfully']);
