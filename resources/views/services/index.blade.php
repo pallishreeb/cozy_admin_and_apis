@@ -26,8 +26,12 @@
                     <td class="px-6 border py-2 whitespace-nowrap">{{ $service->category->name }}</td>
                     <td class="px-6 border py-2 whitespace-nowrap">{{ $service->name }}</td>
                     <td class="px-6 border py-2 whitespace-nowrap">
-                    @if($service->image)
-                      <img src="{{ asset('service_images/' . $service->image) }}" class="h-10 w-10 object-cover rounded-full">
+                    @if($service->images)
+                        @if(is_array($service->images) && count($service->images) > 0)
+                            <img src="{{ asset($service->images[0]) }}" class="h-10 w-10 object-cover rounded-full">
+                        @else
+                            No Image
+                        @endif
                     @else
                         No Image
                     @endif

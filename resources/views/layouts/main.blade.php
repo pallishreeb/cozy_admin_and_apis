@@ -22,8 +22,9 @@
         <header class="bg-white shadow">
             <div class="container mx-auto flex justify-between items-center py-4 px-6">
                 <!-- Left Side - Logo and Name -->
-                <div class="flex items-center">
-                    <a href="/" class="text-xl font-semibold text-gray-800">Cozy Admin</a>
+                <div class="flex items-center gap-2">
+                <img src="{{ asset('logo.png') }}" class="h-10 w-20 rounded-md"/>
+                    <a href="/" class="text-2xl font-semibold text-gray-800">Admin</a>
                 </div>
             </div>
         </header>

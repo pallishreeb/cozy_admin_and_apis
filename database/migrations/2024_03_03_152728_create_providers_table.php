@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->integer('experience')->nullable();
             $table->decimal('rate', 8, 2)->nullable();
-            $table->string('category')->nullable();
             $table->text('specialization')->nullable();
             $table->string('portfolio')->nullable();
             $table->string('profile_pic')->nullable();

@@ -6,7 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 class Service extends Model
 {
     protected $fillable = [
-        'name', 'category_id', 'image', 'price', 'discount',
+        'name', 'category_id', 'images', 'price', 'discount',
+    ];
+
+    protected $casts = [
+        'images' => 'array', // Cast the images field to an array
     ];
 
     public function category()

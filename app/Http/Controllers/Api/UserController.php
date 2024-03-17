@@ -188,4 +188,42 @@ class UserController extends Controller
     return response()->json(['message' => 'Device token saved successfully'], 200);
 }
 
+public function update(Request $request)
+{
+    // Validate the request data
+    $request->validate([
+        'name' => 'nullable|string|max:255',
+        'city' => 'nullable|string|max:255',
+        'state' => 'nullable|string|max:255',
+        'mobile_number' => 'nullable|string|max:20',
+        'zipcode' => 'nullable|string|max:20',
+        'address' => 'nullable|string|max:255',
+        'country' => 'nullable|string|max:255',
+    ]);
+        // Get the JWT token from the request headers
+        $token = $request->header('Authorization');
+
+        // Attempt to parse the token and extract the user's ID
+        try {
+            $payload = JWTAuth::parseToken()->getPayload();
+            $email = $payload->get('sub'); // Assuming user ID is stored as 'sub' in the token
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Invalid token'], 401);
+        }
+
+        // Find the user by email
+        $user = User::where('email', $email)->first();
+
+        // If user not found, return error
+        if (!$user) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+        // Update user details
+        $user->fill($request->all());
+        $user->save();
+
+
+    return response()->json(['message' => 'User details updated successfully', 'user' => $user]);
+}
+
 }

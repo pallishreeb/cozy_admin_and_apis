@@ -24,10 +24,12 @@ class ServiceController extends Controller
     {
         $serviceName = $request->input('service_name');
 
-        // Find providers offering the specified service
         $providers = Provider::whereHas('service', function ($query) use ($serviceName) {
             $query->where('name', 'like', '%' . $serviceName . '%');
+        })->orWhereHas('service.category', function ($query) use ($serviceName) {
+            $query->where('name', 'like', '%' . $serviceName . '%');
         })->get();
+        
 
         return response()->json(['providers' => $providers], 200);
     }

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('image')->nullable(); // Assuming image is optional
+            $table->integer('discount')->nullable();
             $table->timestamps();
         });
     }

@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->unsignedBigInteger('category_id');
-            $table->string('image')->nullable(); // Assuming image is optional
+            $table->json('images')->nullable(); // Assuming image is optional
             $table->decimal('price', 8, 2)->nullable(); // Nullable price field with 8 digits in total and 2 decimal places
-            $table->decimal('discount', 8, 2)->nullable(); // Nullable discount field with 8 digits in total and 2 decimal places
+            $table->integer('discount')->nullable(); // Nullable discount field with 8 digits in total and 2 decimal places
             $table->timestamps();
         });
     }

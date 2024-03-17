@@ -12,13 +12,11 @@ return new class extends Migration
     public function up()
     {
         Schema::table('providers', function (Blueprint $table) {
-            // Drop the existing category and service columns
-            $table->dropColumn(['category', 'service']);
-
-            // Add new columns for category_id and service_id
+            $table->timestamp('email_verified_at')->nullable();
+            $table->timestamp('otp_valid_until')->nullable();
             $table->unsignedBigInteger('category_id')->nullable()->after('email_verified_at');
             $table->unsignedBigInteger('service_id')->nullable()->after('category_id');
-
+            $table->boolean('isAdmin')->default(false)->after('service_id');
             // Add foreign key constraints
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null');
             $table->foreign('service_id')->references('id')->on('services')->onDelete('set null');
@@ -36,13 +34,11 @@ return new class extends Migration
             // Drop the foreign key constraints
             $table->dropForeign(['category_id']);
             $table->dropForeign(['service_id']);
-
+            $table->dropColumn('email_verified_at');
+            $table->dropColumn('otp_valid_until');
+            $table->dropColumn('isAdmin');
             // Drop the new columns
             $table->dropColumn(['category_id', 'service_id']);
-
-            // Add back the old columns
-            $table->string('category')->nullable()->after('email_verified_at');
-            $table->string('service')->nullable()->after('category');
         });
     }
 };
