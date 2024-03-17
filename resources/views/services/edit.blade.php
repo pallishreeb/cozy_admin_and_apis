@@ -21,8 +21,8 @@
                     <input type="text" name="name" id="name" class="form-input w-full p-4 border rounded-md" value="{{ $service->name }}">
                 </div>
 
-                <!-- Existing Images -->
-                <div class="mb-4 flex flex-wrap">
+                    <!-- Existing Images -->
+            <div class="mb-4 flex flex-wrap">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="existing_images">Existing Images:</label>
                 @if(is_array($service->images))
                     @foreach($service->images as $image)
@@ -30,10 +30,15 @@
                             <img src="{{ asset($image) }}" class="h-10 w-10 object-cover rounded-full">
                         </div>
                     @endforeach
+                @elseif(is_string($service->images))
+                    <div class="mr-4 mb-4">
+                        <img src="{{ asset(json_decode($service->images, true)[0]) }}" class="h-10 w-10 object-cover rounded-full">
+                    </div>
                 @else
                     <p>No images found.</p>
                 @endif
             </div>
+
 
 
                 <!-- New Images -->

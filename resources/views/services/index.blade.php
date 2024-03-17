@@ -26,16 +26,34 @@
                     <td class="px-6 border py-2 whitespace-nowrap">{{ $service->category->name }}</td>
                     <td class="px-6 border py-2 whitespace-nowrap">{{ $service->name }}</td>
                     <td class="px-6 border py-2 whitespace-nowrap">
-                    @if($service->images)
-                        @if(is_array($service->images) && count($service->images) > 0)
-                            <img src="{{ asset($service->images[0]) }}" class="h-10 w-10 object-cover rounded-full">
-                        @else
-                            No Image
-                        @endif
-                    @else
-                        No Image
-                    @endif
-                    </td>
+    @if($service->images)
+        @if(is_string($service->images))
+            @php
+                $images = json_decode($service->images, true);
+            @endphp
+            @if(is_array($images) && count($images) > 0)
+                <img src="{{ asset($images[0]) }}" class="h-10 w-10 object-cover rounded-full">
+            @else
+                No Image
+            @endif
+        @else
+            @if(is_array($service->images) && count($service->images) > 0)
+                <img src="{{ asset($service->images[0]) }}" class="h-10 w-10 object-cover rounded-full">
+            @else
+                No Image
+            @endif
+        @endif
+    @else
+        No Image
+    @endif
+</td>
+
+
+
+
+
+
+
                     <td class="px-6  border py-2 whitespace-nowrap">
                         <a href="{{ route('services.edit', $service->id) }}" class="text-indigo-600 hover:text-indigo-900 mr-2">Edit</a>
                         <form action="{{ route('services.destroy', $service->id) }}" method="POST" style="display: inline;">
