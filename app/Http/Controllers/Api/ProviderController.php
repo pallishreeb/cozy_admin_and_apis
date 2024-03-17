@@ -260,9 +260,9 @@ class ProviderController extends Controller
             'rate' => 'numeric',
             'category_id' => 'integer',
             'service_id' => 'integer',
-            'specialization' => 'string',
-            'portfolio' => 'file|max:5120', // Max file size: 5MB
-            'skills' => 'string|max:255',
+            'specialization' => 'nullable|string',
+            'portfolio' => 'nullable|file|max:5120', // Max file size: 5MB
+            'skills' => 'nullable|string|max:255',
         ]);
 
         if ($validator->fails()) {
