@@ -23,6 +23,7 @@
             <div class="bg-white p-4 rounded shadow-md">
                 <h2 class="text-lg font-semibold mb-4"><a href="{{ route('categories.index') }}">Category Management</a></h2>
                 <p>Total Categories: {{ $categoryCount }}</p>
+                
             </div>
 
             <!-- Service Management -->
@@ -36,6 +37,11 @@
                 <h2 class="text-lg font-semibold mb-4"> <a href="{{ route('manage_discounts.index') }}" >Discount Management</a></h2>
                 <p>Total Discounts: {{ $discountCount }}</p>
             </div>
+             <!-- Discount Management -->
+             <div class="bg-white p-4 rounded shadow-md">
+                <h2 class="text-lg font-semibold mb-4"> <a href="{{ route('bookings.index') }}" >Bookings Management</a></h2>
+                <p>Total Bookings: {{ $bookingCount }}</p>
+            </div>
 
             <!-- Update profile -->
             <div class="bg-white p-4 rounded shadow-md">
@@ -43,6 +49,7 @@
                 <p>Here you can update your profile information</p>
                 <a href="{{ route('admin.profile.update') }}" class="block mt-2 text-sm font-semibold text-indigo-600 hover:underline">Update Profile</a>
             </div>
+        
         </div>
     </div>
 @endsection

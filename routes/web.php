@@ -8,7 +8,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ManageDiscountController;
 use App\Http\Controllers\DashboardController;
-
+use App\Http\Controllers\BookingController;
 
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
@@ -65,4 +65,8 @@ Route::post('/discounts', [ManageDiscountController::class, 'store'])->name('man
 Route::get('/discounts/{id}/edit', [ManageDiscountController::class, 'edit'])->name('manage_discounts.edit');
 Route::put('/discounts/{id}', [ManageDiscountController::class, 'update'])->name('manage_discounts.update');
 Route::delete('/discounts/{id}', [ManageDiscountController::class, 'destroy'])->name('manage_discounts.destroy');
+
+
+
+Route::get('/bookings', [BookingController::class, 'index'])->name('bookings.index');
 

@@ -81,6 +81,12 @@
                     Manage Discount
                 </a>
             </li>
+            <li>
+                <a href="/bookings" class="flex items-center py-4 px-4 pl-8   {{ request()->is('bookings') ? 'text-gray-100 bg-red-500' : 'text-gray-800' }}">
+                    <i class="fas fa-list mr-4"></i> <!-- Discount Icon -->
+                    Manage Bookings
+                </a>
+            </li>
         </ul>
     </nav>
 </aside>

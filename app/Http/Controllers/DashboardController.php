@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Provider;
 use App\Models\Category;
 use App\Models\Service;
+use App\Models\Booking;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
@@ -18,10 +19,11 @@ class DashboardController extends Controller
         $providerCount = Provider::count();
         $categoryCount = Category::count();
         $serviceCount = Service::count();
+        $bookingCount = Booking::count();
         $categoriesWithDiscount = Category::whereNotNull('discount')->get();
         $discountCount = Category::whereNotNull('discount')->count();
 
-        return view('welcome', compact('userCount', 'providerCount', 'categoryCount', 'serviceCount', 'discountCount'));
+        return view('welcome', compact('userCount', 'providerCount', 'categoryCount', 'serviceCount', 'discountCount','bookingCount'));
     }
     public function showUpdateProfileForm()
     {
