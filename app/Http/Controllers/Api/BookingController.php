@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Booking;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Validator;
 
@@ -27,11 +28,12 @@ class BookingController extends Controller
             'service_id' => 'required|exists:services,id',
             'provider_id' => 'required|exists:providers,id',
             'user_id' => 'required|exists:users,id',
-            'zipcode' => 'required|string',
+            'zipcode' => 'nullable|string',
             'address' => 'required|string',
-            'city' => 'required|string',
-            'state' => 'required|string',
-            'country' => 'required|string',
+            'mobile_number' => 'required|string',
+            'city' => 'nullable|string',
+            'state' => 'nullable|string',
+            'country' => 'nullable|string',
             'booking_date' => 'required|date',
             'booking_time' => 'required|string',
         ]);
@@ -59,6 +61,7 @@ class BookingController extends Controller
          $validator = Validator::make($request->all(), [
             'booking_date' => 'required|date',
             'booking_time' => 'required|string',
+            'mobile_number' => 'nullable|string',
         ]);
        
 
@@ -98,45 +101,48 @@ class BookingController extends Controller
         // Return a success response
         return response()->json(['message' => 'Booking cancelled successfully', 'booking' => $booking]);
     }
+
+
     public function getProviderBookings(Request $request)
     {
-        $providerId = $request->input('provider_id'); // Assuming you pass provider_id in the request
-        $bookings = Booking::where('provider_id', $providerId)
+        $providerId = $request->input('provider_id');
+        $bookings = Booking::with(['user', 'provider','service'])->where('provider_id', $providerId)
             ->orderBy('created_at', 'desc')
             ->get();
-
+    
         return response()->json(['bookings' => $bookings], 200);
     }
-
+    
     public function getProviderPendingBookings(Request $request)
     {
-        $providerId = $request->input('provider_id'); // Assuming you pass provider_id in the request
-        $bookings = Booking::where('provider_id', $providerId)
+        $providerId = $request->input('provider_id');
+        $bookings = Booking::with(['user', 'provider','service'])->where('provider_id', $providerId)
             ->where('status', 'pending')
             ->orderBy('created_at', 'desc')
             ->get();
-
+    
         return response()->json(['bookings' => $bookings], 200);
     }
-
+    
     public function getUserBookings(Request $request)
     {
-        $userId = $request->input('user_id'); // Assuming you pass user_id in the request
-        $bookings = Booking::where('user_id', $userId)
+        $userId = $request->input('user_id');
+        $bookings = Booking::with(['provider','service'])->where('user_id', $userId)
             ->orderBy('created_at', 'desc')
             ->get();
-
+    
         return response()->json(['bookings' => $bookings], 200);
     }
-
+    
     public function getUserPendingBookings(Request $request)
     {
-        $userId = $request->input('user_id'); // Assuming you pass user_id in the request
-        $bookings = Booking::where('user_id', $userId)
+        $userId = $request->input('user_id');
+        $bookings = Booking::with(['provider','service'])->where('user_id', $userId)
             ->where('status', 'pending')
             ->orderBy('created_at', 'desc')
             ->get();
-
+    
         return response()->json(['bookings' => $bookings], 200);
     }
+    
 }

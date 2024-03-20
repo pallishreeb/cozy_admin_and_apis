@@ -16,14 +16,15 @@ return new class extends Migration
             $table->unsignedBigInteger('service_id');
             $table->unsignedBigInteger('provider_id');
             $table->unsignedBigInteger('user_id');
-            $table->string('zipcode');
+            $table->string('zipcode')->nullable();
             $table->string('address');
-            $table->string('city');
-            $table->string('state');
-            $table->string('country');
+            $table->string('city')->nullable();
+            $table->string('state')->nullable();
+            $table->string('country')->nullable();
             $table->date('booking_date');
             $table->string('booking_time');
             $table->string('status')->default('pending');
+            $table->string('mobile_number');
             $table->timestamps();
         });
         
