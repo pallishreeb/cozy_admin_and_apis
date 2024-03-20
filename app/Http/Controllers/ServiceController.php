@@ -75,9 +75,7 @@ class ServiceController extends Controller
                 $newImages[] = '/service_images/' . $imageName;
             }
             // Merge new images with existing images
-            // $data['images'] = array_merge($service->images ?? [], $newImages);
-                        // Merge new images with existing images
-            $existingImages = json_decode($service->images, true) ?? [];
+            $existingImages = $service->images ?? [];
             $data['images'] = array_merge($existingImages, $newImages);
 
         } else {
