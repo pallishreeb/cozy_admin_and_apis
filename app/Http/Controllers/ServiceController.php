@@ -38,8 +38,8 @@ class ServiceController extends Controller
                 $image->move(public_path('service_images'), $imageName);
                 $imageUrls[] = '/service_images/' . $imageName; // Store image URL
             }
-    
-            $data['images'] = json_encode($imageUrls); // Store image URLs as JSON array
+
+        $data['images'] = $imageUrls; 
         }
     
         Service::create($data);

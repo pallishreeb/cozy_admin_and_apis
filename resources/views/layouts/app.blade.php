@@ -46,37 +46,37 @@
     <nav class="mt-10">
         <ul>
             <li>
-                <a href="/" class="flex items-center py-4 px-4 pl-8 hover:bg-red-500 hover:text-gray-100 {{ request()->is('/') ? 'text-gray-100 bg-red-500' : 'text-gray-800' }}">
+                <a href="/" class="flex items-center py-4 px-4 pl-8  {{ request()->is('/') ? 'text-gray-100 bg-red-500' : 'text-gray-800' }}">
                     <i class="fas fa-tachometer-alt mr-4"></i> <!-- Dashboard Icon -->
                     Dashboard
                 </a>
             </li>
             <li>
-                <a href="/users" class="flex items-center py-4 px-4 pl-8   hover:bg-red-500 hover:text-gray-100 {{ request()->is('users') ? 'text-gray-100 bg-red-500' : 'text-gray-800' }}">
+                <a href="/users" class="flex items-center py-4 px-4 pl-8    {{ request()->is('users') ? 'text-gray-100 bg-red-500' : 'text-gray-800' }}">
                     <i class="fas fa-users mr-4"></i> <!-- Users Icon -->
                     Manage Users
                 </a>
             </li>
             <li>
-                <a href="/providers" class="flex items-center py-4 px-4 pl-8  hover:bg-red-500 hover:text-gray-100 {{ request()->is('providers') ? 'text-gray-100 bg-red-500' : 'text-gray-800' }}">
+                <a href="/providers" class="flex items-center py-4 px-4 pl-8   {{ request()->is('providers') ? 'text-gray-100 bg-red-500' : 'text-gray-800' }}">
                     <i class="fas fa-building mr-4"></i> <!-- Service Providers Icon -->
                     Manage Providers
                 </a>
             </li>
             <li>
-                <a href="/categories" class="flex items-center py-4 px-4 pl-8   hover:bg-red-500 hover:text-gray-100 {{ request()->is('categories') ? 'text-gray-100 bg-red-500' : 'text-gray-800' }}">
+                <a href="/categories" class="flex items-center py-4 px-4 pl-8    {{ request()->is('categories') ? 'text-gray-100 bg-red-500' : 'text-gray-800' }}">
                     <i class="fas fa-tags mr-4"></i> <!-- Categories Icon -->
                     Manage Categories
                 </a>
             </li>
             <li>
-                <a href="/services" class="flex items-center py-4 px-4 pl-8   hover:bg-red-500 hover:text-gray-100 {{ request()->is('services') ? 'text-gray-100 bg-red-500' : 'text-gray-800' }}">
+                <a href="/services" class="flex items-center py-4 px-4 pl-8    {{ request()->is('services') ? 'text-gray-100 bg-red-500' : 'text-gray-800' }}">
                     <i class="fas fa-tools mr-4"></i> <!-- Services Icon -->
                     Manage Services
                 </a>
             </li>
             <li>
-                <a href="/discounts" class="flex items-center py-4 px-4 pl-8   hover:bg-red-500 hover:text-gray-100 {{ request()->is('discount') ? 'text-gray-100 bg-red-500' : 'text-gray-800' }}">
+                <a href="/discounts" class="flex items-center py-4 px-4 pl-8   {{ request()->is('discounts') ? 'text-gray-100 bg-red-500' : 'text-gray-800' }}">
                     <i class="fas fa-percent mr-4"></i> <!-- Discount Icon -->
                     Manage Discount
                 </a>

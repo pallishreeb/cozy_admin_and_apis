@@ -5,13 +5,25 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Booking;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Validator;
+
 
 class BookingController extends Controller
 {
     public function bookService(Request $request)
     {
+          // Set default values for zipcode, city, state, and country if not available
+        if (!$request->filled(['zipcode', 'city', 'state', 'country'])) {
+            $request->merge([
+                'zipcode' => 'NA',
+                'city' => 'NA',
+                'state' => 'NA',
+                'country' => 'NA',
+            ]);
+        }
         // Validate request data
-        $validatedData = $request->validate([
+        $validator = Validator::make($request->all(), [
             'service_id' => 'required|exists:services,id',
             'provider_id' => 'required|exists:providers,id',
             'user_id' => 'required|exists:users,id',
@@ -24,8 +36,14 @@ class BookingController extends Controller
             'booking_time' => 'required|string',
         ]);
 
+         // Check if validation fails
+    if ($validator->fails()) {
+        // Return validation errors as JSON response
+        return response()->json(['errors' => $validator->errors()], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
+    }
+
         // Create a new booking
-        $booking = Booking::create($validatedData);
+        $booking = Booking::create($request->all());
 
         // Return a success response
         return response()->json(['message' => 'Service booked successfully', 'booking' => $booking], 201);
@@ -37,13 +55,20 @@ class BookingController extends Controller
         $booking = Booking::findOrFail($id);
 
         // Validate and update request data
-        $validatedData = $request->validate([
+         // Validate request data
+         $validator = Validator::make($request->all(), [
             'booking_date' => 'required|date',
             'booking_time' => 'required|string',
         ]);
+       
 
+           // Check if validation fails
+    if ($validator->fails()) {
+        // Return validation errors as JSON response
+        return response()->json(['errors' => $validator->errors()], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
+    }
         // Update the booking
-        $booking->update($validatedData);
+        $booking->update($request->all());
 
         // Return a success response
         return response()->json(['message' => 'Booking updated successfully', 'booking' => $booking]);
@@ -61,7 +86,18 @@ class BookingController extends Controller
         // Return a success response
         return response()->json(['message' => 'Booking cancelled successfully', 'booking' => $booking]);
     }
+    public function completeBooking($id)
+    {
+        // Find the booking
+        $booking = Booking::findOrFail($id);
 
+        // Cancel the booking
+        $booking->status = 'completed';
+        $booking->save();
+
+        // Return a success response
+        return response()->json(['message' => 'Booking cancelled successfully', 'booking' => $booking]);
+    }
     public function getProviderBookings(Request $request)
     {
         $providerId = $request->input('provider_id'); // Assuming you pass provider_id in the request

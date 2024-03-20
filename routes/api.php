@@ -81,6 +81,7 @@ Route::get('/providers/{id}', [ServiceController::class, 'providerDetails']);
 Route::post('/bookings', [BookingController::class, 'bookService']);
 Route::put('/bookings/{id}', [BookingController::class, 'editBooking']);
 Route::delete('/bookings/{id}', [BookingController::class, 'cancelBooking']);
+Route::put('/bookings/complete/{id}', [BookingController::class, 'completeBooking']);
 Route::post('/bookings/provider', [BookingController::class, 'getProviderBookings']);
 Route::post('/bookings/provider/pending', [BookingController::class, 'getProviderPendingBookings']);
 Route::post('/bookings/user', [BookingController::class, 'getUserBookings']);
