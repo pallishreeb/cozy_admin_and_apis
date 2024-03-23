@@ -59,6 +59,9 @@ Route::put('/provider/update-business-hours/{id}',[ProviderController::class, 'u
 
 // Route for getting provider profile
 Route::get('/provider/profile', [ProviderController::class, 'getProfile']);
+//save device_token
+Route::post('/provider/save-token', [ProviderController::class, 'saveToken']);
+
 
 Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/categories/{id}', [CategoryController::class, 'show']);
