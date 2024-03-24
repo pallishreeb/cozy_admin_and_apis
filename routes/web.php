@@ -69,4 +69,4 @@ Route::delete('/discounts/{id}', [ManageDiscountController::class, 'destroy'])->
 
 
 Route::get('/bookings', [BookingController::class, 'index'])->name('bookings.index');
-
+Route::delete('/bookings/{booking}', [BookingController::class, 'destroy'])->name('bookings.destroy');
