@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Booking;
 use App\Models\User;
+use App\Models\Provider;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Validator;
 
@@ -152,7 +153,7 @@ class BookingController extends Controller
 
         $user = User::findOrFail($user_id);
         $data=[];
-        $data['message'] = $user->name . 'Booked your service';
+        $data['message'] = $user->name . '  Booked your service';
         // Retrieve all device tokens from the users table
         $provider = Provider::findOrFail($provider_id);
         $token = $provider->device_token;
