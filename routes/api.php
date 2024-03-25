@@ -7,7 +7,7 @@ use App\Http\Controllers\Api\ProviderController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\BookingController;
-
+use App\Http\Controllers\Api\PushNotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -89,4 +89,9 @@ Route::post('/bookings/provider', [BookingController::class, 'getProviderBooking
 Route::post('/bookings/provider/pending', [BookingController::class, 'getProviderPendingBookings']);
 Route::post('/bookings/user', [BookingController::class, 'getUserBookings']);
 Route::post('/bookings/user/pending', [BookingController::class, 'getUserPendingBookings']);
+
+
+
+Route::post('/send-push-notification', [PushNotificationController::class, 'sendPushNotification']);
+
 

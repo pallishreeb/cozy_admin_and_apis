@@ -13,6 +13,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\OtpMail;
 use JWTAuth;
+use Carbon\Carbon;
 
 class ProviderController extends Controller
 {
@@ -87,7 +88,9 @@ class ProviderController extends Controller
         }
 
         // If provider found and password matches, generate JWT token
-        $token = JWTAuth::fromUser($provider);
+        // $token = JWTAuth::fromUser($provider);
+        $token = JWTAuth::customClaims(['exp' =>Carbon::now()->addDays(60)->timestamp])
+        ->fromUser($provider);
 
         // Return token and provider data
         return response()->json([

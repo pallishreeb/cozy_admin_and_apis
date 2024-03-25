@@ -13,6 +13,8 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\OtpMail;
 use JWTAuth;
+use Carbon\Carbon;
+
 
 class UserController extends Controller
 {
@@ -75,7 +77,9 @@ class UserController extends Controller
     
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
-            $token = JWTAuth::fromUser($user);
+            // $token = JWTAuth::fromUser($user);
+            $token = JWTAuth::customClaims(['exp' =>Carbon::now()->addDays(60)->timestamp])
+            ->fromUser($user);
     
             return response()->json([
                 'token' => $token,
